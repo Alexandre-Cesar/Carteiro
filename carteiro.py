@@ -13,7 +13,7 @@ class Carta():
         self.host = host
         self.port = port
 
-    def set_mensagem(self):
+    def __set_mensagem(self):
         message = MIMEMultipart()
         message['From'] = self.sender
         message['To'] = self.receiver
@@ -25,7 +25,7 @@ class Carta():
         Envia mensagem sem utilizar html, apenas usando um string
         '''
 
-        message = self.set_mensagem()
+        message = self.__set_mensagem()
         message['Subject'] = assunto
         message.attach(MIMEText(texto, 'plain'))   
 
@@ -33,7 +33,7 @@ class Carta():
 
     
 
-    def adiciona_anexo(self, file, file_tipe):
+    def __adiciona_anexo(self, file, file_tipe):
         '''
         file: path do arquivo
         file_tipe: tipo do arquivo 
@@ -59,7 +59,7 @@ class Carta():
         '''
         
         #corpo do e-mail
-        message = self.set_mensagem()
+        message = self.__set_mensagem()
         message['Subject'] = assunto
 
 
@@ -74,7 +74,7 @@ class Carta():
         # Anexo do arquivo 
         for a in anexos:
             
-            part = self.adiciona_anexo(a, anexos[a])
+            part = self.__adiciona_anexo(a, anexos[a])
             message.attach(part)
         
         return message
